@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "groupId": 1
+    },
+    {
+      "id": 2,
+      "name": "Alice Smith",
+      "email": "alice@example.com",
+      "groupId": null
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "name": "HR"
+    },
+    {
+      "id": 2,
+      "name": "Engineering"
+    }
+  ]
+}
