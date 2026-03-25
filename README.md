@@ -1,73 +1,171 @@
-# React + TypeScript + Vite
+# User Management Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Описание проекта
 
-Currently, two official plugins are available:
+Данное приложение представляет собой простой dashboard для управления пользователями и их группами.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Реализован функционал:
 
-## React Compiler
+* просмотр списка пользователей
+* поиск и сортировка
+* добавление и удаление пользователей
+* просмотр групп пользователей и их состава
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Данные загружаются с mock-сервера (`json-server`) в формате JSON.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Запуск проекта
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. Установка зависимостей
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Запуск фронтенда
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+### 3. Запуск mock-сервера
+
+```bash
+npm run server
+```
+
+После запуска:
+
+* frontend: http://localhost:5173
+* API: http://localhost:3001
+
+---
+
+## 🧱 Архитектура проекта
+
+Проект построен с использованием подхода **Feature-Sliced Design (FSD)**.
+
+Основные слои:
+
+```
+src/
+ ├── app/        # инициализация приложения, роутинг
+ ├── pages/      # страницы (Users, Groups, Home)
+ ├── entities/   # бизнес-сущности (user, group)
+ ├── shared/     # общий код (api client и утилиты)
+```
+
+---
+
+## 📊 Бизнес-логика
+
+### Пользователи
+
+* пользователь имеет: `id`, `name`, `email`, `groupId`
+* может не принадлежать группе (`groupId = null`)
+
+Реализовано:
+
+* 📋 таблица пользователей
+* 🔍 поиск по `name` и `email`
+* 🔃 сортировка по колонкам
+* ➕ добавление пользователя
+* ❌ удаление пользователя
+
+---
+
+### Группы
+
+* группа имеет: `id`, `name`
+* пользователи связаны с группой через `groupId`
+
+На странице групп:
+
+* отображается список групп
+* считается количество пользователей в каждой группе
+* выводятся имена пользователей, относящихся к группе
+
+---
+
+## ⚡ Производительность
+
+При реализации были учтены аспекты производительности:
+
+* поиск и сортировка реализованы через `useMemo`
+* исключены лишние пересчёты при ререндере
+* для страницы групп используется предварительная обработка данных (группировка пользователей), что позволяет избежать лишних вычислений при каждом рендере
+
+Это снижает сложность операций и делает UI отзывчивым.
+
+---
+
+## 🤖 Использование LLM
+
+### ❌ Users Page (без LLM)
+
+Страница пользователей была реализована вручную.
+
+Причины:
+
+* требование задания
+* демонстрация навыков самостоятельного проектирования UI
+* контроль над архитектурой и логикой
+
+---
+
+### ✅ Groups Page (с использованием LLM)
+
+Для генерации страницы групп был использован LLM (ChatGPT / Claude).
+
+Процесс:
+
+1. Был сформулирован подробный prompt с требованиями:
+
+   * стек (React + TypeScript)
+   * структура данных
+   * требования к UI
+   * ограничения по производительности
+
+2. LLM сгенерировал базовый компонент
+
+3. После генерации код был доработан вручную:
+
+   * добавлена оптимизация через `useMemo`
+   * реализована группировка пользователей
+   * улучшена структура и читаемость
+
+---
+
+### 📌 Вывод по LLM
+
+* LLM хорошо справляется с генерацией базового UI
+* требует доработки с точки зрения:
+
+  * производительности
+  * архитектуры
+* эффективен как инструмент ускорения разработки, но не замена разработчику
+
+---
+
+## 🎯 Итоги
+
+В ходе выполнения задания:
+
+* Реализованы основные CRUD-операции (Create, Read, Delete).
+  Обновление (Update) в рамках задания не требовалось и не реализовано
+* применена модульная архитектура (FSD)
+* учтены аспекты производительности
+* продемонстрировано умение работать как без LLM, так и с его использованием
+
+---
+
+## 🛠️ Стек технологий
+
+* React
+* TypeScript
+* Vite
+* json-server
+* CSS (без UI библиотек)
+
+---

@@ -1,26 +1,101 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "John Doe",
-      "email": "john@example.com",
-      "groupId": 1
+      "name": "Валерия Илюшина",
+      "email": "avrora@gmail.ru",
+      "groupId": 3,
+      "id": "XrUy9XXnu5g"
     },
     {
-      "id": 2,
-      "name": "Alice Smith",
-      "email": "alice@example.com",
-      "groupId": null
+      "name": "Анна Петрова",
+      "email": "anna.petrova@gmail.com",
+      "groupId": 1,
+      "id": "u1tZ6mQkA0a"
+    },
+    {
+      "name": "Dmitry Sokolov",
+      "email": "d.sokolov@company.dev",
+      "groupId": 2,
+      "id": "m8nW4kLpQ2e"
+    },
+    {
+      "name": "Ilya Romanov",
+      "email": "ilya.romanov@inbox.ru",
+      "groupId": 5,
+      "id": "k5Xc9vBnM4p"
+    },
+    {
+      "name": "Екатерина Волкова",
+      "email": "katya.volkova@list.ru",
+      "groupId": 6,
+      "id": "z9Qw1eRtY6u"
+    },
+    {
+      "name": "Artem Lee",
+      "email": "artem.lee@mail.com",
+      "groupId": 7,
+      "id": "h2Jm8nLpS5d"
+    },
+    {
+      "name": "Ольга Смирнова",
+      "email": "olga.smirnova@gmail.com",
+      "groupId": 1,
+      "id": "p7Tg3hKjV8x"
+    },
+    {
+      "name": "Nikita Brown",
+      "email": "nikita.brown@work.net",
+      "groupId": 5,
+      "id": "c4Fv0bNmQ9w"
+    },
+    {
+      "name": "Алексей Иванов",
+      "email": "alex.ivanov@yandex.ru",
+      "groupId": 4,
+      "id": "n6Rk2wPlD3s"
+    },
+    {
+      "name": "Polina Green",
+      "email": "polina.green@mail.com",
+      "groupId": null,
+      "id": "q8Lp3dVxH7m"
+    },
+    {
+      "name": "Максим Крылов",
+      "email": "maksim.krylov@gmail.com",
+      "groupId": null,
+      "id": "w1Nz6kTrP4b"
     }
   ],
   "groups": [
     {
-      "id": 1,
+      "id": "1",
       "name": "HR"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Engineering"
+    },
+    {
+      "id": "3",
+      "name": "Design"
+    },
+    {
+      "id": "4",
+      "name": "Finance"
+    },
+    {
+      "id": "5",
+      "name": "Operations"
+    },
+    {
+      "id": "6",
+      "name": "QA"
+    },
+    {
+      "id": "7",
+      "name": "Customer Support"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

@@ -11,7 +11,7 @@ export const api = {
     return await response.json()
   },
 
-  post: async <T>(url: string, data: any): Promise<T> => {
+  post: async <TResponse, TBody>(url: string, data: TBody): Promise<TResponse> => {
     const response = await fetch(BASE_URL + url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
